@@ -104,10 +104,13 @@ def get_contract_values(contract, admin_address, owner_address):
 	"""
 	default_admin_role = int.to_bytes(0, 32, byteorder="big")
 
-	# TODO complete the following lines by performing contract calls
-	onchain_root = 0  # Get and return the merkleRoot from the provided contract
-	has_role = 0  # Check the contract to see if the address "admin_address" has the role "default_admin_role"
-	prime = 0  # Call the contract to get the prime owned by "owner_address"
+	admin_address = Web3.to_checksum_address(admin_address)
+	owner_address = Web3.to_checksum_address(owner_address)
+
+	
+	onchain_root = contract.functions.merkleRoot().call()
+	has_role = contract.function.hasRole(default_admin_role, admin_address).call()
+	prime = contract.functions.getPrimeByOwner(owner_address).call()
 
 	return onchain_root, has_role, prime
 
