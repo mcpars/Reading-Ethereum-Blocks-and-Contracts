@@ -80,7 +80,7 @@ def is_ordered_block(w3, block_num):
 		return gp - base_fee
 
 	prev_fee = priority_fee(txs[0])
-	for tx in tcs[1:]:
+	for tx in txs[1:]:
 		cur_fee = priority_fee(tx)
 		if prev_fee < cur_fee:
 			return False
