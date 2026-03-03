@@ -17,26 +17,26 @@ def connect_to_eth():
 	return w3
 	
 
-
 def connect_with_middleware(contract_json):
-    with open(contract_json, "r") as f:
-        d = json.load(f)
-        d = d["bsc"]
-        address = d["address"]
-        abi = d["abi"]
+	with open(contract_json, "r") as f:
+    	d = json.load(f)
+    	d = d["bsc"]
+    	address = d["address"]
+    	abi = d["abi"]
 
     # The first section will be the same as "connect_to_eth()" but with a BNB url
-    bnb_url = "https://data-seed-prebsc-1-s1.binance.org:8545/"
-    w3 = Web3(HTTPProvider(bnb_url))
-    assert w3.is_connected(), f"Failed to connect to provider at {bnb_url}"
+	bnb_url = "https://data-seed-prebsc-1-s1.binance.org:8545/"
+	w3 = Web3(HTTPProvider(bnb_url))
+	assert w3.is_connected(), f"Failed to connect to provider at {bnb_url}"
 
     # Inject middleware (required for BNB/BSC testnet POA chains)
-    w3.middleware_onion.inject(ExtraDataToPOAMiddleware, layer=0)
+	w3.middleware_onion.inject(ExtraDataToPOAMiddleware, layer=0)
 
-    checksum_address = Web3.to_checksum_address(address)
+	checksum_address = Web3.to_checksum_address(address)
 
     # Create the contract object
-    contract = w3.eth.contract(address=checksum_address, abi=abi)
+	contract = w3.eth.contract(address=checksum_address, abi=abi)
+	
 	return w3, contract
 
 
