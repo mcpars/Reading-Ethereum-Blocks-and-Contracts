@@ -109,7 +109,7 @@ def get_contract_values(contract, admin_address, owner_address):
 
 	
 	onchain_root = contract.functions.merkleRoot().call()
-	has_role = contract.function.hasRole(default_admin_role, admin_address).call()
+	has_role = contract.functions.hasRole(default_admin_role, admin_address).call()
 	prime = contract.functions.getPrimeByOwner(owner_address).call()
 
 	return onchain_root, has_role, prime
@@ -137,7 +137,7 @@ if __name__ == "__main__":
 	n = 5
 	for _ in range(n):
 		block_num = random.randint(1, latest_block)
-		ordered = is_ordered_block(block_num)
+		ordered = is_ordered_block(eth_w3,block_num)
 		if ordered:
 			print(f"Block {block_num} is ordered")
 		else:
